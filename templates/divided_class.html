@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block title %}
+    高中成绩处理
+{% endblock %}
+{% block head %}
+    <style>
+        th, td {
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col mx-auto" style="max-width: 800px">
+                <label for="" class="mx-auto h5">请选择有效的excel格式文件</label>
+                <form action="{{ url_for('divide_into_class') }}" method="post" enctype="multipart/form-data">
+                    <div class="input-group mb-3">
+                        <label class="col mx-auto" style="max-width: 800px">
+                            <input type="file" class="form-control" placeholder="请选择文件路径"
+                                   aria-describedby="input" name="path_file" value="{{ path_file }}">
+                        </label>
+                        <button type="submit" class="btn btn-outline-info text-wrap">导出excel表</button>
+
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    {% if divided_class %}
+        <div class="container mt-3">
+            <div class="row">
+                <div class="col h3 text-center text-black-50">
+                    数据更新时间：{{ update_time }}
+                    <hr>
+                    <br>
+                    数据来源：{{ path_file.filename }}
+                    <br>
+                </div>
+            </div>
+        </div>
+        <div class="container mt-5 text-center text-warning">
+            <div class="row">
+                <div class="col">
+                    <h5>数据处理完成！
+                        <button class="btn btn-outline-info">
+                            <a href="{{ divided_class }}" style="text-decoration: none">导出拆分表</a>
+                        </button>
+                    </h5>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="container mt-5 text-center text-warning">
+            <div class="row">
+                <div class="col h4">
+                   {{ weekday }}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %}</title>
+
+    {% block head %}{% endblock %}
+
+    <style>
+        body {
+            background-color: #f5f5f5;
+        }
+
+        #top_title {
+            position: relative;
+            margin-top: 50px;
+            text-align: center;
+            width: 100%;
+        }
+
+        #subtitle {
+            width: 100%;
+        }
+
+        #footer {
+            position: relative;
+            bottom: 0;
+            text-align: center;
+            width: auto;
+        }
+    </style>
+
+</head>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="/static/bootstrap.css">
+{#<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">#}
+<link rel="icon" href="/static/sclogo.png">
+
+
+<body>
+
+<div class="container mt-5" id="top_title"
+     style="background-color: #0dcaf0; box-shadow: cadetblue;height: 170px; border-bottom: #6a1a21 solid 4px">
+    <div class="row">
+        <div class="col text-center">
+            <img src="/static/sclogo.png" height="120" alt="" style="margin-top: 20px">
+            <span class="" style="font-size:60px;font-weight: normal;
+                position: relative;top: 22px">
+                    高中年级数据处理平台
+                </span>
+            <hr>
+        </div>
+    </div>
+</div>
+{#<div class="container mt-3" style="background-color: #8b8d95;bottom:80px" id="subtitle">#}
+    <div class="row mt-3"><div class="col"></div>
+        <div class=" col-12" style="text-align: center" >
+            <a href="{{ url_for('instructions') }}">
+                <button class="btn btn-outline-info">使用说明</button>
+            </a>
+            <a href="{{ url_for('process_by_total') }}">
+                <button class="btn btn-outline-info">按总分统计</button>
+            </a>
+            <a href="{{ url_for('process_by_good_scores') }}">
+                <button class="btn btn-outline-info">按有效分统计</button>
+            </a>
+            <a href="{{ url_for('exams') }}">
+                <button class="btn btn-outline-info">生成考室安排</button>
+            </a>
+            <a href="{{ url_for('invigilation') }}">
+                <button class="btn btn-outline-info">生成监考表</button>
+            </a>
+            <a href="{{ url_for('junior') }}">
+                <button class="btn btn-outline-info">初中成绩统计</button>
+            </a>
+            <a href="{{ url_for('divide_into_class') }}">
+                <button class="btn btn-outline-info">按班级排序号</button>
+            </a>
+            <a href="{{ url_for('catalog_courses') }}">
+                <button class="btn btn-outline-info">分类汇总统计</button>
+            </a>
+            <a href="{{ url_for('get_info') }}">
+                <button class="btn btn-outline-info">提取身份证信息</button>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div id="content">{% block content %}{% endblock %}</div>
+
+{#<div class="containter mx-5">#}
+    <div class="row" style="background-color: #6c757d;height: 10px">
+        <div class="col text-center" id="footer" style="width:border-box;text-align: center">
+
+            <img src="/static/hsc_logo_transpaent.png" alt="" height="150">
+            <span style="position: relative;top: -15px;left: -70px">Version 2.0 &copy;Copyright 2021</span>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

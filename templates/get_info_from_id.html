@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% block title %}
+    高中成绩处理
+{% endblock %}
+{% block head %}
+    <style>
+    th,tr,td{
+        text-align: center;
+        color: #6a1a21;
+    }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col mx-auto" style="max-width: 800px">
+                <label for="" class="mx-auto h5">请选择有效的excel格式文件</label>
+                <form action="{{ url_for('get_info') }}" method="post" enctype="multipart/form-data">
+                    <div class="input-group mb-3">
+                        <label class="col mx-auto" style="width: 800px">
+                            <input type="file" class="form-control" placeholder="请输入原始成绩路径"
+                                   name="path_file" value="{{ path_file }}">
+                        </label>
+                        <button type="submit" class="btn btn-outline-info">查看</button>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% if id_bad|length!=0 %}
+        <div class="container mt-3">
+            <div class="row">
+                <div class="col h3 text-center text-black-50">
+                    数据更新时间：{{ update_time }}
+                    <hr>
+                    <br>
+                    数据来源：{{ path_file.filename }}
+                </div>
+            </div>
+        </div>
+        <div class="container mt-5 text-center">
+            <div class="row">
+                <div class="col">
+                    <h3>身份证号信息有{{ id_bad|length }}处错误，请修改后再次运行</h3>
+                </div>
+            </div>
+        </div>
+        <div class="container mt-3">
+            <div class="row">
+                <div class="col text-center table-responsive text-nowrap">
+                    <hr>
+                    <div class="table-responsive" style="text-align: center">
+                             {{ bad_df_html|safe }}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="container mt-5 text-center text-warning">
+            <div class="row">
+                <div class="col h4">
+                    {{ weekday }}
+                </div>
+                <div style= "color: red">{% for message in get_flashed_messages() %}
+                    {{ message }}
+                {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    {% endif %}
+    {% if id_matched %}
+        {% if id_bad|length==0 %}
+            <div class="container mt-5 text-center text-warning">
+            <div class="row">
+                <div class="col">
+                    <h4>数据来源：{{ path_file.filename }}</h4>
+                    <br>
+                    <h3>太棒了！经电脑检测，所有身份证号无误，信息提取完整！谢谢使用！</h3>
+                    <hr>
+                    <div class="table-responsive" style="text-align: center">
+                             {{ show_data_html|safe }}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <div class="container mt-5 text-center text-warning">
+            <div class="row">
+                <div class="col">
+                    <h5>
+                        <button class="btn btn-outline-info">
+                            <a href="{{ id_matched }}" style="text-decoration: none">导出excel表</a>
+                        </button>
+                    </h5>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

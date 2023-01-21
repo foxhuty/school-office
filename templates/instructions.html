@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %}
+    高中成绩处理
+{% endblock %}
+{% block head %}
+    <style>
+        h4 {
+            margin-left: 20px;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="container mt-5 text-center text-warning">
+        <div class="row">
+            <div class="col h4">
+                警告：首次使用，务请仔细阅读使用说明！
+            </div>
+        </div>
+    </div>
+    <div class="container my-3" style="background-color:darkgrey">
+        <div class="row">
+            <div class="col mx-auto" style="max-width: 100%">
+                <br>
+                <br>
+                <h1 style="padding: 20px">使用说明：</h1>
+                <h4>
+                    <ol>
+                        <li>高中成绩excel电子表格必须要有两个工作表，分别命名为：文科、理科</li>
+                        <br>
+                        <li>文科成绩表的表头必须有以下字段：序号，姓名，班级，语文，数学，英语，政治，历史，地理，总分。顺序可以任意排列</li>
+                        <br>
+                        <li>理科成绩表的表头必须有以下字段：序号，姓名，班级，语文，数学，英语，物理，化学，生物，总分。顺序可以任意排列</li>
+                        <br>
+                        <li>文科、理科有效分输入顺序是：语，数，外，政，史，地，总分、语，数，外，理，化，生，总分</li>
+                        <br>
+                        <li>生成考室安排，工作表上必须要有“序号”，“考号”，“班级”，“姓名”，“总分”字段</li>
+                        <br>
+                        <li>监考老师表的表头必须要有“序号”和“姓名”两个字段</li>
+                        <br>
+                        <li>初中成绩excel电子表格必须要有一个工作表，命名为：总表。表头要有以下字段：序号，姓名，班级，语文A卷，语文B卷，语文合卷；数学A卷，数学B卷，数学合卷，英语A卷，英语B卷，
+                            英语合卷，物理A卷，物理B卷，物理合卷，化学，总分。顺序可以任意排列
+                        </li>
+                        <br>
+                        <li>按班级排序号，需要把要用于排序号的excel工作表放在第一位。</li>
+                        <br>
+                        <li>特别强调：不能用‘成绩’代替‘总分’，‘学生’代替‘姓名’；或者出现'数学文'、’数学理‘、’总成绩‘等之类的无效字段名</li>
+                        <br>
+                        <li>成绩数据必须先清理后才能正常使用。即数据区不能出现任何文字，字符等非数字类符号。如“缺考”、“-"，空格等之类符号</li>
+                        <br>
+                        <li>分类汇总统计的excel表的前三项表头要有序号，班级和姓名，第四项表头起为分类汇总内容。</li>
+                        <br>
+                    </ol>
+                </h4>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
