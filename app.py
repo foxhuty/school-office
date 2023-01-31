@@ -13,7 +13,7 @@ from concurrent.futures import ThreadPoolExecutor
 pool = ThreadPoolExecutor(50)
 
 app = Flask(__name__)
-app.config['SECRET_KEY']='lsajfl;dsjfo[ujsdfljsda'
+app.config['SECRET_KEY'] = 'lsajfl;dsjfo[ujsdfljsda'
 
 root_dir = r'D:\成绩统计结果'
 
@@ -45,7 +45,8 @@ def data_update():
 
 @app.route('/')
 def instructions():
-    return render_template('instructions.html')
+    weekday = get_date_weekday()
+    return render_template('instructions.html', weekday=weekday)
 
 
 @app.route('/index/', methods=['GET', 'POST'])
@@ -294,32 +295,35 @@ def get_info():
     weekday = get_date_weekday()
     update_time = data_update()
     path_file = request.files.get('path_file')
-    try:
-        id_info = GetInfoFromId(path_file)
-        id_matched, bad_df, id_bad, show_data = id_info.get_sex_birth_age()
-        bad_df_html = bad_df.to_html(index=False,
-                                     classes=['table', 'table-bordered', 'table-striped'],
-                                     formatters={
-                                         'text-align': 'center',
-                                         'color': 'red'
-                                     },
-                                     na_rep='')
-        show_data_html = show_data.to_html(index=False, classes=['table', 'table-bordered', 'table-striped'],
-                                           formatters={
-                                               'text-align': 'center'
-                                           })
-        return render_template('get_info_from_id.html',
-                               bad_df=bad_df,
-                               id_matched=id_matched,
-                               bad_df_html=bad_df_html,
-                               id_bad=id_bad,
-                               update_time=update_time,
-                               weekday=weekday,
-                               path_file=path_file,
-                               show_data_html=show_data_html)
-    except:
-        flash('请输入正确的文件名或文件格式！！！')
+    if request.method == 'GET':
         return render_template('get_info_from_id.html', update_time=update_time, weekday=weekday)
+    else:
+        try:
+            id_info = GetInfoFromId(path_file)
+            id_matched, bad_df, id_bad, show_data = id_info.get_sex_birth_age()
+            bad_df_html = bad_df.to_html(index=False,
+                                         classes=['table', 'table-bordered', 'table-striped'],
+                                         formatters={
+                                             'text-align': 'center',
+                                             'color': 'red'
+                                         },
+                                         na_rep='')
+            show_data_html = show_data.to_html(index=False, classes=['table', 'table-bordered', 'table-striped'],
+                                               formatters={
+                                                   'text-align': 'center'
+                                               })
+            return render_template('get_info_from_id.html',
+                                   bad_df=bad_df,
+                                   id_matched=id_matched,
+                                   bad_df_html=bad_df_html,
+                                   id_bad=id_bad,
+                                   update_time=update_time,
+                                   weekday=weekday,
+                                   path_file=path_file,
+                                   show_data_html=show_data_html)
+        except:
+            flash('请输入正确的文件名或文件格式！！！')
+            return render_template('get_info_from_id.html', update_time=update_time, weekday=weekday)
 
 
 @app.route('/get_info/<filename>')
